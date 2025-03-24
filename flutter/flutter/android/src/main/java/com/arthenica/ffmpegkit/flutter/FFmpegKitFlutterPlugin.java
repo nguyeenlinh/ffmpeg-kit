@@ -154,7 +154,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     @SuppressWarnings("deprecation")
-    public static void registerWith(final io.flutter.plugin.common.PluginRegistry.Registrar registrar) {
+    public class FFmpegKitFlutterPlugin implements FlutterPlugin {
         final Context context = (registrar.activity() != null) ? registrar.activity() : registrar.context();
         if (context == null) {
             Log.w(LIBRARY_NAME, "FFmpegKitFlutterPlugin can not be registered without a context.");
