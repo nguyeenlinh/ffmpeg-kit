@@ -154,14 +154,40 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     @SuppressWarnings("deprecation")
+//    public class FFmpegKitFlutterPlugin implements FlutterPlugin {
+//        final Context context = (registrar.activity() != null) ? registrar.activity() : registrar.context();
+//        if (context == null) {
+//            Log.w(LIBRARY_NAME, "FFmpegKitFlutterPlugin can not be registered without a context.");
+//            return;
+//        }
+//        FFmpegKitFlutterPlugin plugin = new FFmpegKitFlutterPlugin();
+//        plugin.init(registrar.messenger(), context, registrar.activity(), registrar, null);
+//    }
     public class FFmpegKitFlutterPlugin implements FlutterPlugin {
-        final Context context = (registrar.activity() != null) ? registrar.activity() : registrar.context();
-        if (context == null) {
-            Log.w(LIBRARY_NAME, "FFmpegKitFlutterPlugin can not be registered without a context.");
-            return;
+
+        private static final String LIBRARY_NAME = "FFmpegKitFlutterPlugin";
+        private Context context;
+
+        @Override
+        public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+            context = binding.getApplicationContext();
+
+            if (context == null) {
+                Log.w(LIBRARY_NAME, "FFmpegKitFlutterPlugin cannot be registered without a context.");
+                return;
+            }
+
+            init(binding.getBinaryMessenger(), context);
         }
-        FFmpegKitFlutterPlugin plugin = new FFmpegKitFlutterPlugin();
-        plugin.init(registrar.messenger(), context, registrar.activity(), registrar, null);
+
+        private void init(BinaryMessenger messenger, Context context) {
+            // Thêm logic khởi tạo plugin nếu cần
+        }
+
+        @Override
+        public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+            context = null;
+        }
     }
 
     protected void registerGlobalCallbacks() {
